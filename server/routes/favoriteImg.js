@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const Favorite = require("../mongoDb/favoriteImageSchema");
 
-// POST API to save or update favorite image
 router.post("/save", async (req, res) => {
   try {
     const { imageUrl, isFavorite } = req.body;
