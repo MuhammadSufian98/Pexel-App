@@ -31,6 +31,31 @@
   z-index: 5;
   background: none;
 }
+.KeyWordsDiv {
+  z-index: 2;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.KeyWords {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  max-width: 400px;
+  width: 100%;
+  min-width: 150px;
+  height: 30px;
+  border: 2px solid #a0a0a0;
+  border-radius: 15px;
+  background-color: rgba(255, 255, 255, 0.24);
+  transition: background-color 0.3s ease-in-out;
+}
+.KeyWords:hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.4);
+}
 .SearchBar {
   border: 1px solid #fff;
   z-index: 4;

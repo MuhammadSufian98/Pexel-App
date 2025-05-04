@@ -80,7 +80,20 @@ function MainPage() {
         <div className="MainDiv">
           <div className="Container1">
             <h1>Where Ideas Find Real Image</h1>
-
+            <div className="KeyWordsDiv">
+              <h2 className="KeyWords" onClick={() => setKeyWord("Cars")}>
+                Cars
+              </h2>
+              <h2 className="KeyWords" onClick={() => setKeyWord("Galaxy")}>
+                Galaxy
+              </h2>
+              <h2 className="KeyWords" onClick={() => setKeyWord("Coding")}>
+                Coding
+              </h2>
+              <h2 className="KeyWords" onClick={() => setKeyWord("Minimalism")}>
+                Minimalism
+              </h2>
+            </div>
             <img src={banner} alt="Banner" className="Banner" />
           </div>
         </div>
