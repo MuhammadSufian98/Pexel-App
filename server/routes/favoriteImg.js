@@ -9,7 +9,7 @@ router.post("/save", async (req, res) => {
     if (!imageUrl) {
       return res
         .status(400)
-        .json({ message: "userId and imageUrl are required" });
+        .json({ message: "ImageUrl is required" });
     }
 
     const updatedFavorite = await Favorite.findOneAndUpdate(
