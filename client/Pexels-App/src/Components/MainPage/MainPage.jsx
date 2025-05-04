@@ -110,7 +110,7 @@ function MainPage() {
             const isLiked = likedImages[index];
 
             return (
-              <div key={index}>
+              <div className="Container2Div" key={index}>
                 <img
                   src={img.src.medium}
                   alt={img.photographer}
