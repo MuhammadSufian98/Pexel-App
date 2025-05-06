@@ -11,7 +11,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<MainPage />} />
-        <Route path="/favorite" element={<FavoriteImges />} />
+        <Route path="/favorite" element={<FavoriteImages />} />
       </Routes>
       <Footer />
     </BrowserRouter>
