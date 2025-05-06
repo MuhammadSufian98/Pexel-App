@@ -5,10 +5,14 @@ import banner from "../../assets/banner.jpeg";
 import liked from "../../assets/heart-removebg-preview.png";
 import notLiked from "../../assets/love.png";
 import Download from "../../assets/download.png";
+import search from "../../assets/search.png";
+import Loading from "../../assets/Loading.gif";
 
 function MainPage() {
   const [images, setImages] = useState([]);
+  const [isImagesLoaded, setIsImagesLoaded] = useState(false);
   const [page, setPage] = useState(1);
+  const [PreKeyWord, setPreKeyWord] = useState("Wallpapers");
   const [KeyWord, setKeyWord] = useState("Wallpapers");
   const [likedImages, setLikedImages] = useState({});
 
@@ -24,6 +28,7 @@ function MainPage() {
         setImages((prevImages) =>
           page === 1 ? res.data : [...prevImages, ...res.data]
         );
+        setIsImagesLoaded(true);
       } catch (error) {
         console.error("Error fetching images:", error);
       }
@@ -33,9 +38,11 @@ function MainPage() {
   }, [KeyWord, page]);
 
   const handleKeyDown = (e) => {
-    const Value = e.target.value;
-    setKeyWord(Value);
-    setPage(1);
+    if (e.key !== "Enter") {
+      const Value = e.target.value;
+      setKeyWord(Value);
+      setPage(1);
+    }
   };
 
   const handleLoadMore = () => {
@@ -104,44 +111,55 @@ function MainPage() {
             type="text"
             placeholder="Search for images..."
             className="SearchBar"
-            onKeyDown={handleKeyDown}
+            onChange={(e) => setPreKeyWord(e.target.value)}
+          />
+          <img
+            src={search}
+            alt="Search"
+            className="SearchIcon"
+            onClick={() => setKeyWord(PreKeyWord)}
           />
         </div>
-        <div className="Container2">
-          {images.map((img, index) => {
-            const isLiked = likedImages[index];
+        {isImagesLoaded ? (
+          <div className="Container2">
+            {images.map((img, index) => {
+              const isLiked = likedImages[index];
+              return (
+                <div className="Container2Div" key={index}>
+                  <img
+                    src={img.src.medium}
+                    alt={img.photographer}
+                    className="GridImages"
+                  />
+                  <img
+                    src={img.src.medium}
+                    alt={img.photographer}
+                    className="GridImagesBack"
+                  />
+                  <img
+                    src={isLiked ? liked : notLiked}
+                    alt={isLiked ? "liked" : "not liked"}
+                    className="Icon displayBlock"
+                    onClick={() => handleFavoriteClick(index, img)}
+                  />
+                  <img
+                    src={Download}
+                    alt="Download"
+                    className="Icon IconSide"
+                    onClick={() =>
+                      downloadImage(img.src.original, img.photographer)
+                    }
+                  />
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="LoadingDiv">
+            <img src={Loading} alt="Loading" className="LoadingGif" />
+          </div>
+        )}
 
-            return (
-              <div className="Container2Div" key={index}>
-                <img
-                  src={img.src.medium}
-                  alt={img.photographer}
-                  className="GridImages"
-                />
-                <img
-                  src={img.src.medium}
-                  alt={img.photographer}
-                  className="GridImagesBack"
-                />
-
-                <img
-                  src={isLiked ? liked : notLiked}
-                  alt={isLiked ? "liked" : "not liked"}
-                  className="Icon displayBlock"
-                  onClick={() => handleFavoriteClick(index, img)}
-                />
-                <img
-                  src={Download}
-                  alt={"Download"}
-                  className="Icon IconSide"
-                  onClick={() =>
-                    downloadImage(img.src.original, img.photographer)
-                  }
-                />
-              </div>
-            );
-          })}
-        </div>
         <div className="BTNContainer">
           <button className="BTN" onClick={handleLoadMore}>
             Load More.
