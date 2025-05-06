@@ -3,7 +3,7 @@ import "./FavoriteImages.css";
 import axios from "axios";
 import liked from "../../assets/heart-removebg-preview.png";
 
-function FavoriteImges() {
+function FavoriteImages() {
   const [favoriteImages, setFavoriteImages] = useState([]);
   const Endpoint = import.meta.env.VITE_BACKEND_LINK;
 
@@ -29,6 +29,7 @@ function FavoriteImges() {
       isFavorite: !img.isFavorite,
     });
   };
+
   useEffect(() => {
     fetchFavoriteImages();
   }, []);
@@ -65,4 +66,4 @@ function FavoriteImges() {
   );
 }
 
-export default FavoriteImges;
+export default FavoriteImages;

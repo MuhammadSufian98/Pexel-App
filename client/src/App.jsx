@@ -2,7 +2,7 @@ import { useState } from "react";
 import Header from "./Components/Header-Footer/header";
 import Footer from "./Components/Header-Footer/footer";
 import MainPage from "./Components/MainPage/MainPage";
-import FavoriteImges from "./Components/FavoritePage/FavoriteIamges";
+import FavoriteImages from "./Components/FavoritePage/FavoriteImages";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
