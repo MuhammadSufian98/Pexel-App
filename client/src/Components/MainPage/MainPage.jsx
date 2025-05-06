@@ -19,31 +19,32 @@ function MainPage() {
   const Endpoint = import.meta.env.VITE_BACKEND_LINK;
 
   useEffect(() => {
+    const controller = new AbortController();
+
     const fetchImages = async () => {
       try {
         const res = await axios.get(
-          `${Endpoint}/api/images?query=${KeyWord}&page=${page}`
+          `${Endpoint}/api/images?query=${KeyWord}&page=${page}`,
+          { signal: controller.signal }
         );
 
-        setImages((prevImages) =>
-          page === 1 ? res.data : [...prevImages, ...res.data]
-        );
+        setImages((prev) => (page === 1 ? res.data : [...prev, ...res.data]));
+
         setIsImagesLoaded(true);
+        if (page === 1) setKeyWord("");
       } catch (error) {
-        console.error("Error fetching images:", error);
+        if (axios.isCancel(error)) {
+          console.log("Request canceled:", error.message);
+        } else {
+          console.error("Error fetching images:", error);
+        }
       }
     };
 
-    fetchImages();
-  }, [KeyWord, page]);
+    if (KeyWord) fetchImages();
 
-  const handleKeyDown = (e) => {
-    if (e.key !== "Enter") {
-      const Value = e.target.value;
-      setKeyWord(Value);
-      setPage(1);
-    }
-  };
+    return () => controller.abort();
+  }, [KeyWord, page]);
 
   const handleLoadMore = () => {
     setPage((prevPage) => prevPage + 1);
