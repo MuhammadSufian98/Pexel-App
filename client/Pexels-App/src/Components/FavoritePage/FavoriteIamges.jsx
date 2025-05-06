@@ -5,12 +5,11 @@ import liked from "../../assets/heart-removebg-preview.png";
 
 function FavoriteImges() {
   const [favoriteImages, setFavoriteImages] = useState([]);
+  const Endpoint = import.meta.env.BACKEND_LINK;
 
   const fetchFavoriteImages = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5000/api/favorite/getFav"
-      );
+      const response = await axios.get(`${Endpoint}/api/favorite/getFav`);
       setFavoriteImages(response.data);
     } catch (error) {
       console.error("Error fetching favorite images:", error);
@@ -25,7 +24,7 @@ function FavoriteImges() {
 
     setFavoriteImages(updatedImages);
 
-    axios.post("http://localhost:5000/api/favorite/save", {
+    axios.post(`${Endpoint}/api/favorite/save`, {
       imageUrl: img.imageUrl,
       isFavorite: !img.isFavorite,
     });

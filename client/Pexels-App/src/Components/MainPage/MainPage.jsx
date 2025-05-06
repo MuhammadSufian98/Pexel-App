@@ -12,11 +12,13 @@ function MainPage() {
   const [KeyWord, setKeyWord] = useState("Wallpapers");
   const [likedImages, setLikedImages] = useState({});
 
+  const Endpoint = import.meta.env.BACKEND_LINK
+
   useEffect(() => {
     const fetchImages = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/images?query=${KeyWord}&page=${page}`
+          `${Endpoint}/api/images?query=${KeyWord}&page=${page}`
         );
 
         setImages((prevImages) =>
@@ -48,7 +50,7 @@ function MainPage() {
       [index]: newFavoriteStatus,
     }));
 
-    axios.post("http://localhost:5000/api/favorite/save", {
+    axios.post(`${Endpoint}/api/favorite/save`, {
       imageUrl: img.src.medium,
       isFavorite: newFavoriteStatus,
       // userId: "your-user-id"
