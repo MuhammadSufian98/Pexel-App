@@ -5,7 +5,7 @@ import liked from "../../assets/heart-removebg-preview.png";
 
 function FavoriteImges() {
   const [favoriteImages, setFavoriteImages] = useState([]);
-  const Endpoint = import.meta.env.BACKEND_LINK;
+  const Endpoint = import.meta.env.VITE_BACKEND_LINK;
 
   const fetchFavoriteImages = async () => {
     try {

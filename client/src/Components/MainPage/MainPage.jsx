@@ -12,7 +12,7 @@ function MainPage() {
   const [KeyWord, setKeyWord] = useState("Wallpapers");
   const [likedImages, setLikedImages] = useState({});
 
-  const Endpoint = import.meta.env.BACKEND_LINK;
+  const Endpoint = import.meta.env.VITE_BACKEND_LINK;
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -21,14 +21,11 @@ function MainPage() {
           `${Endpoint}/api/images?query=${KeyWord}&page=${page}`
         );
 
-        const dataArray = Array.isArray(res.data) ? res.data : [];
-
         setImages((prevImages) =>
-          page === 1 ? dataArray : [...prevImages, ...dataArray]
+          page === 1 ? res.data : [...prevImages, ...res.data]
         );
       } catch (error) {
         console.error("Error fetching images:", error);
-        setImages([]);
       }
     };
 
@@ -111,40 +108,39 @@ function MainPage() {
           />
         </div>
         <div className="Container2">
-          {Array.isArray(images) &&
-            images.map((img, index) => {
-              const isLiked = likedImages[index];
+          {images.map((img, index) => {
+            const isLiked = likedImages[index];
 
-              return (
-                <div className="Container2Div" key={index}>
-                  <img
-                    src={img.src.medium}
-                    alt={img.photographer}
-                    className="GridImages"
-                  />
-                  <img
-                    src={img.src.medium}
-                    alt={img.photographer}
-                    className="GridImagesBack"
-                  />
+            return (
+              <div className="Container2Div" key={index}>
+                <img
+                  src={img.src.medium}
+                  alt={img.photographer}
+                  className="GridImages"
+                />
+                <img
+                  src={img.src.medium}
+                  alt={img.photographer}
+                  className="GridImagesBack"
+                />
 
-                  <img
-                    src={isLiked ? liked : notLiked}
-                    alt={isLiked ? "liked" : "not liked"}
-                    className="Icon displayBlock"
-                    onClick={() => handleFavoriteClick(index, img)}
-                  />
-                  <img
-                    src={Download}
-                    alt={"Download"}
-                    className="Icon IconSide"
-                    onClick={() =>
-                      downloadImage(img.src.original, img.photographer)
-                    }
-                  />
-                </div>
-              );
-            })}
+                <img
+                  src={isLiked ? liked : notLiked}
+                  alt={isLiked ? "liked" : "not liked"}
+                  className="Icon displayBlock"
+                  onClick={() => handleFavoriteClick(index, img)}
+                />
+                <img
+                  src={Download}
+                  alt={"Download"}
+                  className="Icon IconSide"
+                  onClick={() =>
+                    downloadImage(img.src.original, img.photographer)
+                  }
+                />
+              </div>
+            );
+          })}
         </div>
         <div className="BTNContainer">
           <button className="BTN" onClick={handleLoadMore}>

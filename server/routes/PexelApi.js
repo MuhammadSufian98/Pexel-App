@@ -2,8 +2,8 @@ const express = require("express");
 const axios = require("axios");
 const router = express.Router();
 
-const PEXELS_API_KEY = process.env.PEXELS_API_KEY;
-const PEXELS_BASE_URL = process.env.PEXELS_BASE_URL;
+const PexelApiKey = process.env.PEXELS_API_KEY;
+const PexelsBaseUrl = process.env.PEXELS_BASE_URL;
 
 router.get("/images", async (req, res) => {
   try {
