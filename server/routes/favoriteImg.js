@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Favorite = require("../mongoDb/favoriteImageSchema");
+const favoriteSchema = require("../mongoDb/favoriteImageSchema");
 
 router.post("/save", async (req, res) => {
   try {
@@ -12,7 +12,7 @@ router.post("/save", async (req, res) => {
         .json({ message: "ImageUrl is required" });
     }
 
-    const updatedFavorite = await Favorite.findOneAndUpdate(
+    const updatedFavorite = await favoriteSchema.findOneAndUpdate(
       { imageUrl },
       { isFavorite: isFavorite !== undefined ? isFavorite : true },
       { upsert: true, new: true, setDefaultsOnInsert: true }
@@ -30,7 +30,7 @@ router.post("/save", async (req, res) => {
 
 router.get("/getFav", async (req, res) => {
   try {
-    const favorites = await Favorite.find({});
+    const favorites = await favoriteSchema.find({});
     res.status(200).json(favorites);
   } catch (error) {
     console.error("Error fetching favorite images:", error);
