@@ -14,6 +14,10 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Failed to connect to MongoDB", err));
 
+app.use("/", (req, res) => {
+  res.send("Welcome to the Pexels API server!");
+});
+
 app.use("/api", pexelsRoutes);
 app.use("/api/favorite", favoriteImgRoute);
 
