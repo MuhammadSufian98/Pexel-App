@@ -28,7 +28,7 @@ function MainPage() {
         setImages((prev) => (page === 1 ? res.data : [...prev, ...res.data]));
         setIsImagesLoaded(true);
 
-        if (page === 1) setKeyWord("");
+        setIsImagesLoaded(true);
       } catch (error) {
         console.error("Error fetching images:", error);
       }
